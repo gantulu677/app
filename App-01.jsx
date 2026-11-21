@@ -3539,8 +3539,9 @@ function CartPage() {
       </div>
 
       {/* cart_summary & checkout_action */}
-      {detailedItems.length > 0 && (
-        <StandaloneBottomAction className="p-4 flex flex-col gap-3" style={{ backgroundColor: tokens.surface, borderTop: "1px solid " + tokens.border }}>
+      <StandaloneBottomAction className="p-4 flex flex-col gap-3" style={{ backgroundColor: tokens.surface, borderTop: "1px solid " + tokens.border }}>
+        {detailedItems.length > 0 && (
+          <>
           <div className="flex items-center justify-between">
             <span style={{ fontSize: "14px", color: tokens.text_secondary }}>Subtotal</span>
             <span style={{ fontSize: "18px", fontWeight: 700, color: tokens.text_primary }}>
@@ -3550,8 +3551,9 @@ function CartPage() {
           <DsButton variant="primary" fullWidth onClick={() => navigate("checkout")}>
             Lanjut ke Checkout
           </DsButton>
-        </StandaloneBottomAction>
-      )}
+          </>
+        )}
+      </StandaloneBottomAction>
     </StandalonePageLayout>
   );
 }
@@ -3635,6 +3637,7 @@ function CheckoutPage() {
           onAction={() => navigate("products")}
         />
         </StandaloneContent>
+        <StandaloneBottomAction />
       </StandalonePageLayout>
     );
   }
@@ -4068,6 +4071,7 @@ function NotificationsPage() {
         )}
       </div>
       </StandaloneContent>
+      <StandaloneBottomAction />
     </StandalonePageLayout>
   );
 }
