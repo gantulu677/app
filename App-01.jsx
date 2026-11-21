@@ -3398,6 +3398,13 @@ function AppShell() {
  * 7. STANDALONE PAGES (Render outside AppShell; no Header or BottomNavigation)
  * ============================================================================
  */
+function StandalonePageLayout({ children, style = {} }) {
+  return <div className="flex flex-col w-full h-full min-h-0 overflow-hidden" style={{ height: "100dvh", minHeight: "100dvh", overflow: "hidden", ...style }}>{children}</div>;
+}
+function StandaloneHeader({ children }) { return <header className="shrink-0 w-full">{children}</header>; }
+function StandaloneContent({ children, className = "", style = {} }) { return <main className={"flex-1 min-h-0 overflow-y-auto overflow-x-hidden " + className} style={{ overscrollBehavior: "contain", ...style }}>{children}</main>; }
+function StandaloneBottomAction({ children, className = "", style = {} }) { return <footer className={"shrink-0 w-full " + className} style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)", ...style }}>{children}</footer>; }
+
 function CartPage() {
   const {
     tokens,
@@ -3424,12 +3431,10 @@ function CartPage() {
   );
 
   return (
-    <div
-      className="flex flex-col min-h-full justify-between"
-      style={{ backgroundColor: tokens.background }}
-    >
-      <div>
+    <StandalonePageLayout style={{ backgroundColor: tokens.background }}>
+      <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
         {/* cart_header */}
+        <StandaloneHeader>
         <div
           className="sticky top-0 z-10 flex items-center justify-between px-4"
           style={{
@@ -3453,8 +3458,10 @@ function CartPage() {
           <span style={{ width: "60px" }} />
         </div>
 
+        </StandaloneHeader>
         {/* cart_items */}
-        <div className="p-4 flex flex-col gap-3">
+        <StandaloneContent className="p-4 flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
           {detailedItems.length === 0 ? (
             <EmptyState
               icon={ShoppingBag}
@@ -3528,17 +3535,12 @@ function CartPage() {
             ))
           )}
         </div>
+        </StandaloneContent>
       </div>
 
       {/* cart_summary & checkout_action */}
       {detailedItems.length > 0 && (
-        <div
-          className="p-4 flex flex-col gap-3"
-          style={{
-            backgroundColor: tokens.surface,
-            borderTop: `1px solid ${tokens.border}`,
-          }}
-        >
+        <StandaloneBottomAction className="p-4 flex flex-col gap-3" style={{ backgroundColor: tokens.surface, borderTop: "1px solid " + tokens.border }}>
           <div className="flex items-center justify-between">
             <span style={{ fontSize: "14px", color: tokens.text_secondary }}>Subtotal</span>
             <span style={{ fontSize: "18px", fontWeight: 700, color: tokens.text_primary }}>
@@ -3548,9 +3550,9 @@ function CartPage() {
           <DsButton variant="primary" fullWidth onClick={() => navigate("checkout")}>
             Lanjut ke Checkout
           </DsButton>
-        </div>
+        </StandaloneBottomAction>
       )}
-    </div>
+    </StandalonePageLayout>
   );
 }
 
@@ -3622,7 +3624,9 @@ function CheckoutPage() {
 
   if (itemsDetail.length === 0) {
     return (
-      <div className="p-4">
+      <StandalonePageLayout style={{ backgroundColor: tokens.background }}>
+        <StandaloneHeader><div className="flex items-center justify-between px-4" style={{ height: "56px", backgroundColor: tokens.surface, borderBottom: "1px solid " + tokens.border }}><button type="button" onClick={() => navigate("cart")} className="inline-flex items-center gap-1.5" style={{ minHeight: "44px", fontWeight: 600, fontSize: "14px", color: tokens.text_primary }}><ArrowLeft size={18} />Keranjang</button><h1 style={{ fontSize: "17px", fontWeight: 700, color: tokens.text_primary }}>Checkout</h1><span style={{ width: "60px" }} /></div></StandaloneHeader>
+        <StandaloneContent className="p-4">
         <EmptyState
           icon={ShoppingBag}
           title="Tidak ada item untuk di-checkout"
@@ -3630,13 +3634,15 @@ function CheckoutPage() {
           actionLabel="Kembali ke Produk"
           onAction={() => navigate("products")}
         />
-      </div>
+        </StandaloneContent>
+      </StandalonePageLayout>
     );
   }
 
   return (
-    <div className="flex flex-col gap-4 pb-8" style={{ backgroundColor: tokens.background }}>
+    <StandalonePageLayout style={{ backgroundColor: tokens.background }}>
       {/* checkout_header */}
+      <StandaloneHeader>
       <div
         className="sticky top-0 z-10 flex items-center justify-between px-4"
         style={{
@@ -3660,7 +3666,9 @@ function CheckoutPage() {
         <span style={{ width: "60px" }} />
       </div>
 
-      <div className="px-4 flex flex-col gap-4">
+      </StandaloneHeader>
+      <StandaloneContent className="px-4 flex flex-col gap-4 pb-4">
+      <div className="flex flex-col gap-4">
         {/* checkout_address */}
         <DsCard>
           <div className="flex flex-col gap-2">
@@ -3869,7 +3877,10 @@ function CheckoutPage() {
           </div>
         </DsCard>
 
-        {/* place_order_action */}
+      </div>
+      </StandaloneContent>
+      {/* place_order_action */}
+      <StandaloneBottomAction className="p-4" style={{ backgroundColor: tokens.surface, borderTop: "1px solid " + tokens.border }}>
         <DsButton
           variant="primary"
           size="lg"
@@ -3888,8 +3899,8 @@ function CheckoutPage() {
           <ShieldCheck size={18} />
           Bayar Sekarang · {formatIDR(finalTotal)}
         </DsButton>
-      </div>
-    </div>
+      </StandaloneBottomAction>
+    </StandalonePageLayout>
   );
 }
 
@@ -3898,10 +3909,9 @@ function PaymentResultPage() {
   const isSuccess = lastPaymentResult?.status === "success";
 
   return (
-    <div
-      className="flex flex-col justify-between min-h-full p-5"
-      style={{ backgroundColor: tokens.background }}
-    >
+    <StandalonePageLayout style={{ backgroundColor: tokens.background }}>
+      <StandaloneHeader><div className="flex items-center justify-between px-4" style={{ height: "56px", backgroundColor: tokens.surface, borderBottom: "1px solid " + tokens.border }}><button type="button" onClick={() => navigate("home")} className="inline-flex items-center gap-1.5" style={{ minHeight: "44px", fontWeight: 600, fontSize: "14px", color: tokens.text_primary }}><ArrowLeft size={18} />Beranda</button><h1 style={{ fontSize: "17px", fontWeight: 700, color: tokens.text_primary }}>Status Pembayaran</h1><span style={{ width: "60px" }} /></div></StandaloneHeader>
+      <StandaloneContent className="p-5">
       <div className="flex flex-col gap-5 pt-4">
         {/* payment_status */}
         <div className="flex flex-col items-center text-center gap-3">
@@ -3948,9 +3958,9 @@ function PaymentResultPage() {
           </div>
         </DsCard>
       </div>
-
+      </StandaloneContent>
       {/* next_actions */}
-      <div className="flex flex-col gap-2.5 pt-6">
+      <StandaloneBottomAction className="flex flex-col gap-2.5 p-5 pt-3">
         <DsButton
           variant="primary"
           fullWidth
@@ -3970,8 +3980,8 @@ function PaymentResultPage() {
         <DsButton variant="secondary" fullWidth onClick={() => navigate("home")}>
           Kembali ke Beranda
         </DsButton>
-      </div>
-    </div>
+      </StandaloneBottomAction>
+    </StandalonePageLayout>
   );
 }
 
@@ -3985,8 +3995,9 @@ function NotificationsPage() {
   } = useApp();
 
   return (
-    <div className="flex flex-col min-h-full" style={{ backgroundColor: tokens.background }}>
+    <StandalonePageLayout style={{ backgroundColor: tokens.background }}>
       {/* notification_header */}
+      <StandaloneHeader>
       <div
         className="sticky top-0 z-10 flex items-center justify-between px-4"
         style={{
@@ -4016,8 +4027,10 @@ function NotificationsPage() {
         </button>
       </div>
 
+      </StandaloneHeader>
       {/* notification_list or notification_empty_state */}
-      <div className="p-4 flex flex-col gap-3">
+      <StandaloneContent className="p-4 flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         {notifications.length === 0 ? (
           <EmptyState
             icon={Bell}
@@ -4054,7 +4067,8 @@ function NotificationsPage() {
           ))
         )}
       </div>
-    </div>
+      </StandaloneContent>
+    </StandalonePageLayout>
   );
 }
 
@@ -4075,15 +4089,9 @@ function LiveChatPage() {
   };
 
   return (
-    <div
-      className="flex flex-col"
-      style={{
-        height: "100dvh",
-        minHeight: "100dvh",
-        backgroundColor: tokens.background,
-      }}
-    >
+    <StandalonePageLayout style={{ backgroundColor: tokens.background }}>
       {/* chat_header */}
+      <StandaloneHeader>
       <div
         className="flex items-center justify-between px-4 shrink-0"
         style={{
@@ -4110,8 +4118,10 @@ function LiveChatPage() {
         <span style={{ width: "60px" }} />
       </div>
 
+      </StandaloneHeader>
       {/* conversation */}
-      <div className="flex-1 min-h-0 overflow-y-auto p-4 flex flex-col gap-3">
+      <StandaloneContent className="p-4 flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
         {chatMessages.map((msg) => {
           const isUser = msg.sender === "user";
           return (
@@ -4144,7 +4154,9 @@ function LiveChatPage() {
         <div ref={endRef} />
       </div>
 
+      </StandaloneContent>
       {/* message_composer */}
+      <StandaloneBottomAction style={{ paddingBottom: 0 }}>
       <form
         onSubmit={handleSend}
         className="flex items-center gap-2 p-3 shrink-0"
@@ -4183,7 +4195,8 @@ function LiveChatPage() {
           <Send size={18} />
         </button>
       </form>
-    </div>
+      </StandaloneBottomAction>
+    </StandalonePageLayout>
   );
 }
 
@@ -4216,8 +4229,7 @@ function StandalonePageRenderer() {
         flexDirection: "column",
         height: "100dvh",
         minHeight: "100dvh",
-        overflowY: "auto",
-        overflowX: "hidden",
+        overflow: "hidden",
         backgroundColor: tokens.background,
       }}
     >
