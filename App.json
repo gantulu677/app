@@ -3,9 +3,9 @@
   "config": {
     "name": "Storefront App",
     "file": "App.json",
-    "version": "1.4.2",
+    "version": "1.5.0",
     "status": "draft",
-    "description": "Konfigurasi lengkap aplikasi storefront React mobile-only: halaman belanja, akun, pesanan, checkout mandiri, dan overlay.",
+    "description": "Konfigurasi aplikasi storefront React mobile-only dengan AppShell, halaman standalone, navigasi utama, dan overlay.",
     "platform": "mobile",
     "framework": "react",
     "rendering": "spa",
@@ -115,39 +115,6 @@
           }
         },
         {
-          "id": "livechat",
-          "path": "/livechat",
-          "title": "Live Chat",
-          "component": "LiveChatPage",
-          "enabled": true,
-          "render_in": "app_shell",
-          "navigation": {
-            "bottom_tab": true
-          }
-        },
-        {
-          "id": "notification",
-          "path": "/notifications",
-          "title": "Notifikasi",
-          "component": "NotificationsPage",
-          "enabled": true,
-          "render_in": "app_shell",
-          "navigation": {
-            "bottom_tab": false
-          }
-        },
-        {
-          "id": "cart",
-          "path": "/cart",
-          "title": "Keranjang",
-          "component": "CartPage",
-          "enabled": true,
-          "render_in": "app_shell",
-          "navigation": {
-            "bottom_tab": false
-          }
-        },
-        {
           "id": "profile",
           "path": "/profile",
           "title": "Profil",
@@ -254,7 +221,6 @@
       "forgot_password": "guest_only",
       "checkout": "authenticated",
       "payment_result": "authenticated",
-      "product_gallery": "public",
       "notification": "public"
     },
     "guards": {
@@ -349,12 +315,13 @@
       "Only enabled pages may be registered in the application router.",
       "Header and bottom navigation actions must resolve to valid page IDs or routes.",
       "AppShell direct child order is Header, main_content, then bottom_navigation; do not add other direct children to AppShell.",
-      "MainContent page registry is limited to home, products, livechat, notification, cart, and profile; other storefront routes must not be inserted into this primary page list."
+      "MainContent page registry contains only home, products, and profile; notification, cart, and livechat are standalone routes and must not be duplicated in MainContent.",
+      "Header and bottom navigation controls may remain in AppShell while their destination pages are registered in standalone_pages; navigation controls do not determine page render ownership."
     ]
   },
   "standalone_pages": {
     "enabled": true,
-    "description": "Halaman mandiri full-screen di luar AppShell; tidak menampilkan Header atau BottomNavigation utama.",
+    "description": "Halaman mandiri full-screen di luar AppShell; tidak menampilkan Header atau BottomNavigation utama. Sebagian halaman diakses melalui aksi navigasi yang tetap ditempatkan di AppShell.",
     "shell": "standalone",
     "layout": {
       "display": "flex",
@@ -366,54 +333,6 @@
     },
     "route_matching": "explicit",
     "pages": [
-      {
-        "id": "login",
-        "path": "/login",
-        "title": "Masuk",
-        "component": "LoginPage",
-        "enabled": true,
-        "sections": [
-          "brand_header",
-          "login_form",
-          "social_login_optional",
-          "register_link"
-        ],
-        "features": [
-          "authentication",
-          "form_validation",
-          "password_visibility"
-        ]
-      },
-      {
-        "id": "register",
-        "path": "/register",
-        "title": "Daftar",
-        "component": "RegisterPage",
-        "enabled": true,
-        "sections": [
-          "brand_header",
-          "registration_form",
-          "login_link"
-        ],
-        "features": [
-          "account_registration",
-          "form_validation"
-        ]
-      },
-      {
-        "id": "forgot_password",
-        "path": "/forgot-password",
-        "title": "Lupa Kata Sandi",
-        "component": "ForgotPasswordPage",
-        "enabled": true,
-        "sections": [
-          "brand_header",
-          "recovery_form"
-        ],
-        "features": [
-          "password_recovery"
-        ]
-      },
       {
         "id": "checkout",
         "path": "/checkout",
@@ -457,21 +376,62 @@
         ]
       },
       {
-        "id": "product_gallery",
-        "path": "/products/:slug/gallery",
-        "title": "Galeri Produk",
-        "component": "ProductGalleryPage",
+        "id": "notification",
+        "path": "/notifications",
+        "title": "Notifikasi",
+        "component": "NotificationsPage",
         "enabled": true,
         "sections": [
-          "full_screen_gallery",
-          "gallery_controls"
+          "notification_header",
+          "notification_list",
+          "notification_empty_state"
         ],
         "features": [
-          "image_zoom",
-          "image_navigation"
+          "notification_listing",
+          "notification_read_state"
+        ]
+      },
+      {
+        "id": "cart",
+        "path": "/cart",
+        "title": "Keranjang",
+        "component": "CartPage",
+        "enabled": true,
+        "sections": [
+          "cart_header",
+          "cart_items",
+          "cart_summary",
+          "checkout_action"
+        ],
+        "features": [
+          "cart_item_management",
+          "quantity_update",
+          "remove_item",
+          "proceed_to_checkout"
+        ]
+      },
+      {
+        "id": "livechat",
+        "path": "/livechat",
+        "title": "Live Chat",
+        "component": "LiveChatPage",
+        "enabled": true,
+        "sections": [
+          "chat_header",
+          "conversation",
+          "message_composer"
+        ],
+        "features": [
+          "send_message",
+          "conversation_history"
         ]
       }
-    ]
+    ],
+    "navigation_behavior": {
+      "navigation_controls_render_in": "app_shell",
+      "destination_pages_render_in": "standalone_pages",
+      "shared_page_instances": false
+    }
   },
   "overlay": {
     "enabled": true,
