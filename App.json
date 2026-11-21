@@ -3,7 +3,7 @@
   "config": {
     "name": "Storefront App",
     "file": "App.json",
-    "version": "1.5.0",
+    "version": "1.6.0",
     "status": "draft",
     "description": "Konfigurasi aplikasi storefront React mobile-only dengan AppShell, halaman standalone, navigasi utama, dan overlay.",
     "platform": "mobile",
@@ -185,7 +185,15 @@
       "Header",
       "main_content",
       "bottom_navigation"
-    ]
+    ],
+    "overlay_host": {
+      "enabled": true,
+      "component": "OverlayHost",
+      "mount": "application_portal_root",
+      "render_layer": "above_app_content",
+      "outside_scroll_container": true,
+      "controls": "overlay"
+    }
   },
   "navigation": {
     "strategy": "route_based",
@@ -244,7 +252,8 @@
     },
     "toast": {
       "enabled": true,
-      "position": "top"
+      "position": "top",
+      "host": "OverlayHost"
     }
   },
   "responsive": {
@@ -314,9 +323,10 @@
       "Data contracts and external service configuration must remain outside App.json.",
       "Only enabled pages may be registered in the application router.",
       "Header and bottom navigation actions must resolve to valid page IDs or routes.",
-      "AppShell direct child order is Header, main_content, then bottom_navigation; do not add other direct children to AppShell.",
       "MainContent page registry contains only home, products, and profile; notification, cart, and livechat are standalone routes and must not be duplicated in MainContent.",
-      "Header and bottom navigation controls may remain in AppShell while their destination pages are registered in standalone_pages; navigation controls do not determine page render ownership."
+      "Header and bottom navigation controls may remain in AppShell while their destination pages are registered in standalone_pages; navigation controls do not determine page render ownership.",
+      "OverlayHost is registered by AppShell but mounted through the application portal root; it is not a flex child and must not participate in AppShell layout or scrolling.",
+      "Global toast notifications must be rendered by OverlayHost; do not create a second independent toast host."
     ]
   },
   "standalone_pages": {
