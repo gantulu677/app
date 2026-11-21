@@ -3,9 +3,9 @@
   "config": {
     "name": "Storefront App",
     "file": "App.json",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "status": "draft",
-    "description": "Konfigurasi storefront React mobile-only dengan AppShell, StandalonePages, dan OverlayHost.",
+    "description": "Konfigurasi lengkap aplikasi storefront React mobile-only: halaman belanja, akun, pesanan, checkout mandiri, dan overlay.",
     "platform": "mobile",
     "framework": "react",
     "rendering": "spa",
@@ -25,8 +25,8 @@
     "layout": {
       "display": "flex",
       "direction": "column",
-      "min_height": "100dvh",
       "height": "100dvh",
+      "min_height": "100dvh",
       "overflow": "hidden"
     },
     "safe_area": true,
@@ -97,19 +97,51 @@
           "title": "Beranda",
           "component": "HomePage",
           "enabled": true,
+          "render_in": "app_shell",
           "navigation": {
             "bottom_tab": true
-          }
+          },
+          "sections": [
+            "hero_banner",
+            "quick_categories",
+            "featured_products",
+            "promotion_banner",
+            "popular_products",
+            "latest_products",
+            "content_highlights"
+          ],
+          "features": [
+            "campaign_highlights",
+            "product_recommendations",
+            "quick_navigation"
+          ]
         },
         {
           "id": "products",
           "path": "/products",
-          "title": "Produk",
+          "title": "Semua Produk",
           "component": "ProductsPage",
           "enabled": true,
+          "render_in": "app_shell",
           "navigation": {
             "bottom_tab": true
-          }
+          },
+          "sections": [
+            "page_header",
+            "search_entry",
+            "category_filter",
+            "sort_and_filter",
+            "product_grid",
+            "pagination_or_infinite_scroll"
+          ],
+          "features": [
+            "keyword_search",
+            "category_filter",
+            "price_filter",
+            "sort_products",
+            "product_grid",
+            "wishlist_toggle"
+          ]
         },
         {
           "id": "livechat",
@@ -117,9 +149,110 @@
           "title": "Live Chat",
           "component": "LiveChatPage",
           "enabled": true,
+          "render_in": "app_shell",
           "navigation": {
             "bottom_tab": true
-          }
+          },
+          "sections": [
+            "conversation_header",
+            "conversation_list",
+            "support_entry"
+          ],
+          "features": [
+            "customer_support",
+            "conversation_history",
+            "unread_indicator"
+          ]
+        },
+        {
+          "id": "categories",
+          "path": "/categories",
+          "title": "Kategori",
+          "component": "CategoriesPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "page_header",
+            "category_grid"
+          ],
+          "features": [
+            "browse_categories"
+          ]
+        },
+        {
+          "id": "category_detail",
+          "path": "/categories/:slug",
+          "title": "Detail Kategori",
+          "component": "CategoryDetailPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "category_header",
+            "category_description",
+            "sort_and_filter",
+            "product_grid"
+          ],
+          "features": [
+            "category_products",
+            "filter_products"
+          ]
+        },
+        {
+          "id": "product_detail",
+          "path": "/products/:slug",
+          "title": "Detail Produk",
+          "component": "ProductDetailPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "product_gallery",
+            "product_summary",
+            "price_and_promotion",
+            "variant_selector",
+            "stock_and_delivery",
+            "product_description",
+            "product_specifications",
+            "related_products"
+          ],
+          "features": [
+            "select_variant",
+            "quantity_selector",
+            "add_to_cart",
+            "buy_now",
+            "wishlist_toggle",
+            "share_product"
+          ]
+        },
+        {
+          "id": "search",
+          "path": "/search",
+          "title": "Pencarian",
+          "component": "SearchPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "search_input",
+            "recent_searches",
+            "popular_searches",
+            "search_results"
+          ],
+          "features": [
+            "keyword_search",
+            "search_suggestions",
+            "clear_search_history"
+          ]
         },
         {
           "id": "notifications",
@@ -127,9 +260,19 @@
           "title": "Notifikasi",
           "component": "NotificationsPage",
           "enabled": true,
+          "render_in": "app_shell",
           "navigation": {
             "bottom_tab": false
-          }
+          },
+          "sections": [
+            "page_header",
+            "notification_filters",
+            "notification_list"
+          ],
+          "features": [
+            "read_notification",
+            "mark_all_read"
+          ]
         },
         {
           "id": "cart",
@@ -137,19 +280,190 @@
           "title": "Keranjang",
           "component": "CartPage",
           "enabled": true,
+          "render_in": "app_shell",
           "navigation": {
             "bottom_tab": false
-          }
+          },
+          "sections": [
+            "page_header",
+            "cart_items",
+            "shipping_estimate",
+            "voucher_entry",
+            "cart_summary"
+          ],
+          "features": [
+            "update_quantity",
+            "remove_item",
+            "select_items",
+            "apply_voucher",
+            "proceed_to_checkout"
+          ]
+        },
+        {
+          "id": "wishlist",
+          "path": "/wishlist",
+          "title": "Wishlist",
+          "component": "WishlistPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "page_header",
+            "wishlist_product_list"
+          ],
+          "features": [
+            "remove_wishlist_item",
+            "move_to_cart"
+          ]
         },
         {
           "id": "profile",
           "path": "/profile",
-          "title": "Profil",
+          "title": "Akun Saya",
           "component": "ProfilePage",
           "enabled": true,
+          "render_in": "app_shell",
           "navigation": {
             "bottom_tab": false
-          }
+          },
+          "sections": [
+            "profile_summary",
+            "account_menu",
+            "order_shortcuts",
+            "support_shortcuts"
+          ],
+          "features": [
+            "view_account",
+            "navigate_account_pages"
+          ]
+        },
+        {
+          "id": "orders",
+          "path": "/orders",
+          "title": "Pesanan Saya",
+          "component": "OrderHistoryPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "page_header",
+            "order_status_tabs",
+            "order_list"
+          ],
+          "features": [
+            "filter_orders",
+            "track_order",
+            "reorder"
+          ]
+        },
+        {
+          "id": "order_detail",
+          "path": "/orders/:orderId",
+          "title": "Detail Pesanan",
+          "component": "OrderDetailPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "order_status_timeline",
+            "order_items",
+            "shipping_address",
+            "payment_summary",
+            "order_actions"
+          ],
+          "features": [
+            "track_order",
+            "cancel_order_when_allowed",
+            "contact_support"
+          ]
+        },
+        {
+          "id": "addresses",
+          "path": "/account/addresses",
+          "title": "Alamat Saya",
+          "component": "AddressesPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "page_header",
+            "address_list"
+          ],
+          "features": [
+            "add_address",
+            "edit_address",
+            "delete_address",
+            "set_default_address"
+          ]
+        },
+        {
+          "id": "address_form",
+          "path": "/account/addresses/new",
+          "title": "Tambah Alamat",
+          "component": "AddressFormPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "page_header",
+            "address_form"
+          ],
+          "features": [
+            "validate_address",
+            "save_address"
+          ]
+        },
+        {
+          "id": "account_settings",
+          "path": "/account/settings",
+          "title": "Pengaturan Akun",
+          "component": "AccountSettingsPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "page_header",
+            "account_information",
+            "security_options",
+            "preferences"
+          ],
+          "features": [
+            "edit_profile",
+            "change_password",
+            "manage_preferences"
+          ]
+        },
+        {
+          "id": "help",
+          "path": "/help",
+          "title": "Bantuan",
+          "component": "HelpCenterPage",
+          "enabled": true,
+          "render_in": "app_shell",
+          "navigation": {
+            "bottom_tab": false
+          },
+          "sections": [
+            "page_header",
+            "faq_categories",
+            "contact_options"
+          ],
+          "features": [
+            "browse_faq",
+            "contact_support"
+          ]
         }
       ],
       "layout": {
@@ -161,6 +475,13 @@
         "overflow_x": "hidden",
         "overscroll_behavior": "contain",
         "webkit_overflow_scrolling": "touch"
+      },
+      "page_renderer": {
+        "component": "PageRenderer",
+        "strategy": "route_based",
+        "scroll_container": "main-content",
+        "keep_shell_visible": true,
+        "page_transition": "none"
       }
     },
     "bottom_navigation": {
@@ -178,7 +499,7 @@
         },
         {
           "id": "products",
-          "label": "Product",
+          "label": "Produk",
           "icon": "grid",
           "route": "/products",
           "page": "products"
@@ -202,6 +523,10 @@
     "strategy": "route_based",
     "default_route": "/",
     "not_found_route": "/404",
+    "route_resolution_order": [
+      "standalone_pages",
+      "app_shell_pages"
+    ],
     "transitions": {
       "enabled": true,
       "type": "none"
@@ -209,10 +534,32 @@
     "route_access": {
       "home": "public",
       "products": "public",
+      "categories": "public",
+      "category_detail": "public",
+      "product_detail": "public",
+      "search": "public",
       "livechat": "public",
       "notifications": "public",
       "cart": "public",
-      "profile": "public"
+      "wishlist": "public",
+      "profile": "public",
+      "orders": "authenticated",
+      "order_detail": "authenticated",
+      "addresses": "authenticated",
+      "address_form": "authenticated",
+      "account_settings": "authenticated",
+      "help": "public",
+      "login": "guest_only",
+      "register": "guest_only",
+      "forgot_password": "guest_only",
+      "checkout": "authenticated",
+      "payment_result": "authenticated",
+      "product_gallery": "public"
+    },
+    "guards": {
+      "authenticated_redirect": "/login",
+      "guest_only_redirect": "/",
+      "preserve_intended_destination": true
     }
   },
   "global_ui": {
@@ -243,9 +590,15 @@
     "mobile_canvas": {
       "width": "100%",
       "max_width": "480px",
+      "height": "100dvh",
       "min_height": "100dvh"
     },
-    "prevent_horizontal_overflow": true
+    "prevent_horizontal_overflow": true,
+    "zoom": {
+      "enabled": false,
+      "user_scalable": false
+    },
+    "orientation": "portrait_preferred"
   },
   "accessibility": {
     "semantic_navigation": true,
@@ -257,6 +610,7 @@
   "implementation": {
     "component_hierarchy": [
       "App",
+      "RouteResolver",
       "AppShell",
       "AppHeader",
       "MainContent",
@@ -270,44 +624,151 @@
       "visual_tokens": "design_system.json",
       "application_structure": "App.json",
       "page_details": "pages.json",
-      "reusable_components": "components.json",
-      "data_contracts": "data.json",
-      "external_services": "integrations.json",
       "standalone_page_details": "standalone_pages.json",
-      "overlay_definitions": "overlays.json"
+      "reusable_components": "components.json",
+      "overlay_definitions": "overlays.json",
+      "data_contracts": "data.json",
+      "external_services": "integrations.json"
     },
     "rules": [
-      "App.json defines application shell, page registry, and primary navigation.",
-      "Visual styles, colors, typography, spacing, and component variants must be sourced from design_system.json.",
-      "Page-specific sections and business logic must be defined outside App.json.",
-      "Do not duplicate design tokens or backend configuration in this file.",
-      "Only pages marked enabled may be registered in the application router.",
-      "Header and bottom navigation actions must resolve to valid page IDs or routes.",
+      "App.json defines the application shell, route registry, standalone page registry, and primary navigation.",
+      "The application is mobile-only; do not create desktop navigation or desktop-specific page layouts.",
       "AppShell must use a full-viewport flex column layout with overflow hidden.",
       "AppHeader and BottomNavigation must remain non-shrinking flex children outside the scroll container.",
-      "MainContent must use flex: 1 1 0%, min-height: 0, and overflow-y: auto so only the main content scrolls.",
+      "MainContent must use flex: 1 1 0%, min-height: 0, and overflow-y: auto so only main content scrolls.",
       "BottomNavigation must remain in normal flex flow; do not use fixed positioning when AppShell owns the viewport layout.",
       "Standalone pages must render outside AppShell and must not inherit AppHeader or BottomNavigation.",
       "A route must be registered either as an AppShell page or as a standalone page; route ownership must not be ambiguous.",
       "Overlay components must render through the centralized OverlayHost above the active page without replacing the current route.",
       "Overlay visibility and payload must be controlled by application state; overlays must not be registered as standalone routes.",
-      "Standalone page-specific configuration may be maintained in standalone_pages.json, while reusable overlay definitions may be maintained in overlays.json."
+      "Page section names describe page composition; detailed layout and business logic belong in pages.json.",
+      "Visual styles, colors, typography, spacing, and component variants must be sourced from design_system.json.",
+      "Reusable UI component contracts must be defined in components.json.",
+      "Data contracts and external service configuration must remain outside App.json.",
+      "Only enabled pages may be registered in the application router.",
+      "Header and bottom navigation actions must resolve to valid page IDs or routes."
     ]
   },
   "standalone_pages": {
     "enabled": true,
-    "description": "Halaman mandiri yang dirender di luar AppShell dan tidak mewarisi Header maupun BottomNavigation.",
+    "description": "Halaman mandiri full-screen di luar AppShell; tidak menampilkan Header atau BottomNavigation utama.",
+    "shell": "standalone",
     "layout": {
       "display": "flex",
       "direction": "column",
-      "min_height": "100dvh",
       "height": "100dvh",
+      "min_height": "100dvh",
       "overflow_y": "auto",
       "overflow_x": "hidden"
     },
-    "shell": "standalone",
     "route_matching": "explicit",
-    "pages": []
+    "pages": [
+      {
+        "id": "login",
+        "path": "/login",
+        "title": "Masuk",
+        "component": "LoginPage",
+        "enabled": true,
+        "sections": [
+          "brand_header",
+          "login_form",
+          "social_login_optional",
+          "register_link"
+        ],
+        "features": [
+          "authentication",
+          "form_validation",
+          "password_visibility"
+        ]
+      },
+      {
+        "id": "register",
+        "path": "/register",
+        "title": "Daftar",
+        "component": "RegisterPage",
+        "enabled": true,
+        "sections": [
+          "brand_header",
+          "registration_form",
+          "login_link"
+        ],
+        "features": [
+          "account_registration",
+          "form_validation"
+        ]
+      },
+      {
+        "id": "forgot_password",
+        "path": "/forgot-password",
+        "title": "Lupa Kata Sandi",
+        "component": "ForgotPasswordPage",
+        "enabled": true,
+        "sections": [
+          "brand_header",
+          "recovery_form"
+        ],
+        "features": [
+          "password_recovery"
+        ]
+      },
+      {
+        "id": "checkout",
+        "path": "/checkout",
+        "title": "Checkout",
+        "component": "CheckoutPage",
+        "enabled": true,
+        "sections": [
+          "checkout_header",
+          "checkout_address",
+          "checkout_items",
+          "shipping_method",
+          "voucher_entry",
+          "payment_method",
+          "order_summary",
+          "place_order_action"
+        ],
+        "features": [
+          "address_selection",
+          "shipping_selection",
+          "voucher_validation",
+          "payment_selection",
+          "order_submission"
+        ]
+      },
+      {
+        "id": "payment_result",
+        "path": "/payment/result",
+        "title": "Status Pembayaran",
+        "component": "PaymentResultPage",
+        "enabled": true,
+        "sections": [
+          "payment_status",
+          "order_reference",
+          "payment_details",
+          "next_actions"
+        ],
+        "features": [
+          "payment_status_display",
+          "retry_payment_when_allowed",
+          "view_order"
+        ]
+      },
+      {
+        "id": "product_gallery",
+        "path": "/products/:slug/gallery",
+        "title": "Galeri Produk",
+        "component": "ProductGalleryPage",
+        "enabled": true,
+        "sections": [
+          "full_screen_gallery",
+          "gallery_controls"
+        ],
+        "features": [
+          "image_zoom",
+          "image_navigation"
+        ]
+      }
+    ]
   },
   "overlay": {
     "enabled": true,
@@ -342,6 +803,11 @@
       {
         "id": "popover",
         "type": "popover",
+        "enabled": true
+      },
+      {
+        "id": "toast",
+        "type": "toast",
         "enabled": true
       }
     ],
