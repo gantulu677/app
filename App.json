@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "config": {
+    "name": "Storefront App",
+    "file": "App.json",
+    "version": "1.2.0",
+    "status": "draft",
+    "description": "Konfigurasi struktur aplikasi storefront mobile-first berbasis React.",
+    "platform": "mobile",
+    "framework": "react",
+    "rendering": "spa",
+    "design_reference": "design_system.json"
+  },
+  "application": {
+    "id": "storefront",
+    "name": "Storefront",
+    "locale": "id-ID",
+    "theme": {
+      "mode": "system",
+      "source": "design_system.json"
+    }
+  },
+  "app_shell": {
+    "type": "mobile",
+    "layout": "app-shell",
+    "safe_area": true,
+    "header": {
+      "enabled": true,
+      "position": "top",
+      "sticky": true,
+      "items": [
+        {
+          "id": "logo",
+          "type": "brand",
+          "enabled": true,
+          "align": "left",
+          "action": {
+            "type": "navigate",
+            "target": "home"
+          }
+        },
+        {
+          "id": "notification",
+          "type": "icon_button",
+          "enabled": true,
+          "align": "right",
+          "show_badge": true,
+          "action": {
+            "type": "navigate",
+            "target": "notifications"
+          }
+        },
+        {
+          "id": "cart",
+          "type": "icon_button",
+          "enabled": true,
+          "align": "right",
+          "show_badge": true,
+          "action": {
+            "type": "navigate",
+            "target": "cart"
+          }
+        },
+        {
+          "id": "profile",
+          "type": "avatar_button",
+          "enabled": true,
+          "align": "right",
+          "action": {
+            "type": "navigate",
+            "target": "profile"
+          }
+        }
+      ]
+    },
+    "main_content": {
+      "id": "main-content",
+      "enabled": true,
+      "position": "between_header_and_bottom_navigation",
+      "scroll": {
+        "enabled": true,
+        "behavior": "native",
+        "preserve_position_on_tab_change": true
+      },
+      "pages": [
+        {
+          "id": "home",
+          "path": "/",
+          "title": "Beranda",
+          "component": "HomePage",
+          "enabled": true,
+          "navigation": {
+            "bottom_tab": true
+          }
+        },
+        {
+          "id": "products",
+          "path": "/products",
+          "title": "Produk",
+          "component": "ProductsPage",
+          "enabled": true,
+          "navigation": {
+            "bottom_tab": true
+          }
+        },
+        {
+          "id": "livechat",
+          "path": "/livechat",
+          "title": "Live Chat",
+          "component": "LiveChatPage",
+          "enabled": true,
+          "navigation": {
+            "bottom_tab": true
+          }
+        },
+        {
+          "id": "notifications",
+          "path": "/notifications",
+          "title": "Notifikasi",
+          "component": "NotificationsPage",
+          "enabled": true,
+          "navigation": {
+            "bottom_tab": false
+          }
+        },
+        {
+          "id": "cart",
+          "path": "/cart",
+          "title": "Keranjang",
+          "component": "CartPage",
+          "enabled": true,
+          "navigation": {
+            "bottom_tab": false
+          }
+        },
+        {
+          "id": "profile",
+          "path": "/profile",
+          "title": "Profil",
+          "component": "ProfilePage",
+          "enabled": true,
+          "navigation": {
+            "bottom_tab": false
+          }
+        }
+      ]
+    },
+    "bottom_navigation": {
+      "enabled": true,
+      "position": "bottom",
+      "behavior": "fixed",
+      "safe_area_inset": true,
+      "items": [
+        {
+          "id": "home",
+          "label": "Home",
+          "icon": "home",
+          "route": "/",
+          "page": "home"
+        },
+        {
+          "id": "products",
+          "label": "Product",
+          "icon": "grid",
+          "route": "/products",
+          "page": "products"
+        },
+        {
+          "id": "livechat",
+          "label": "Live Chat",
+          "icon": "message-circle",
+          "route": "/livechat",
+          "page": "livechat"
+        }
+      ],
+      "active_state": {
+        "source": "current_route",
+        "style_reference": "design_system.json"
+      }
+    }
+  },
+  "navigation": {
+    "strategy": "route_based",
+    "default_route": "/",
+    "not_found_route": "/404",
+    "transitions": {
+      "enabled": true,
+      "type": "none"
+    },
+    "route_access": {
+      "home": "public",
+      "products": "public",
+      "livechat": "public",
+      "notifications": "public",
+      "cart": "public",
+      "profile": "public"
+    }
+  },
+  "global_ui": {
+    "loading": {
+      "enabled": true,
+      "component": "AppLoading"
+    },
+    "error": {
+      "enabled": true,
+      "component": "AppError"
+    },
+    "empty_state": {
+      "enabled": true,
+      "component": "EmptyState"
+    },
+    "toast": {
+      "enabled": true,
+      "position": "top"
+    }
+  },
+  "responsive": {
+    "strategy": "mobile_only",
+    "viewport": {
+      "min_width": 320,
+      "max_width": 767
+    },
+    "desktop_behavior": "centered_mobile_canvas",
+    "mobile_canvas": {
+      "width": "100%",
+      "max_width": "480px",
+      "min_height": "100dvh"
+    },
+    "prevent_horizontal_overflow": true
+  },
+  "accessibility": {
+    "semantic_navigation": true,
+    "minimum_touch_target": 44,
+    "visible_focus": true,
+    "respect_reduced_motion": true,
+    "icon_buttons_require_labels": true
+  },
+  "implementation": {
+    "component_hierarchy": [
+      "App",
+      "AppShell",
+      "AppHeader",
+      "MainContent",
+      "PageRenderer",
+      "BottomNavigation"
+    ],
+    "configuration_driven": true,
+    "separation_of_concerns": {
+      "visual_tokens": "design_system.json",
+      "application_structure": "App.json",
+      "page_details": "pages.json",
+      "reusable_components": "components.json",
+      "data_contracts": "data.json",
+      "external_services": "integrations.json"
+    },
+    "rules": [
+      "App.json defines application shell, page registry, and primary navigation.",
+      "Visual styles, colors, typography, spacing, and component variants must be sourced from design_system.json.",
+      "Page-specific sections and business logic must be defined outside App.json.",
+      "Do not duplicate design tokens or backend configuration in this file.",
+      "Only pages marked enabled may be registered in the application router.",
+      "Header and bottom navigation actions must resolve to valid page IDs or routes."
+    ]
+  }
+}
