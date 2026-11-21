@@ -1,0 +1,540 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "metadata": {
+    "name": "Storefront Design System",
+    "file": "design_system.json",
+    "version": "1.0.0",
+    "status": "draft",
+    "description": "Design tokens and reusable visual standards for the mobile-only Storefront React application.",
+    "platform": "mobile",
+    "framework": "react",
+    "visual_direction": "apple_inspired_premium_minimalism",
+    "source_of_truth": "design_system.json"
+  },
+  "principles": [
+    "Use a clean, restrained, product-first visual hierarchy.",
+    "Prioritize readability, clear interaction states, and consistent spacing.",
+    "Use semantic design tokens instead of hard-coded visual values.",
+    "Keep layouts mobile-first and prevent horizontal overflow.",
+    "Prefer subtle borders and elevation over heavy decoration."
+  ],
+  "foundations": {
+    "color": {
+      "palette": {
+        "white": "#FFFFFF",
+        "black": "#000000",
+        "gray_50": "#F9F9FB",
+        "gray_100": "#F5F5F7",
+        "gray_200": "#E8E8ED",
+        "gray_300": "#D2D2D7",
+        "gray_400": "#AEAEB2",
+        "gray_500": "#86868B",
+        "gray_600": "#6E6E73",
+        "gray_700": "#424245",
+        "gray_800": "#2C2C2E",
+        "gray_900": "#1D1D1F",
+        "blue_500": "#0071E3",
+        "blue_600": "#006EDB",
+        "green_500": "#248A3D",
+        "red_500": "#D70015",
+        "orange_500": "#C93400",
+        "yellow_500": "#B88600"
+      },
+      "semantic": {
+        "light": {
+          "background": "#FFFFFF",
+          "surface": "#FFFFFF",
+          "surface_secondary": "#F5F5F7",
+          "surface_tertiary": "#F9F9FB",
+          "text_primary": "#1D1D1F",
+          "text_secondary": "#6E6E73",
+          "text_tertiary": "#86868B",
+          "text_inverse": "#FFFFFF",
+          "border": "#E8E8ED",
+          "border_strong": "#D2D2D7",
+          "accent": "#0071E3",
+          "accent_hover": "#006EDB",
+          "accent_subtle": "#EAF3FF",
+          "success": "#248A3D",
+          "success_subtle": "#EAF6EC",
+          "warning": "#B88600",
+          "warning_subtle": "#FFF6DB",
+          "danger": "#D70015",
+          "danger_subtle": "#FFF0F0",
+          "overlay_backdrop": "rgba(0, 0, 0, 0.40)"
+        },
+        "dark": {
+          "background": "#000000",
+          "surface": "#1C1C1E",
+          "surface_secondary": "#2C2C2E",
+          "surface_tertiary": "#3A3A3C",
+          "text_primary": "#F5F5F7",
+          "text_secondary": "#AEAEB2",
+          "text_tertiary": "#8E8E93",
+          "text_inverse": "#1D1D1F",
+          "border": "#38383A",
+          "border_strong": "#48484A",
+          "accent": "#0A84FF",
+          "accent_hover": "#409CFF",
+          "accent_subtle": "#102A45",
+          "success": "#30D158",
+          "success_subtle": "#15351F",
+          "warning": "#FFD60A",
+          "warning_subtle": "#3A3210",
+          "danger": "#FF453A",
+          "danger_subtle": "#3D1717",
+          "overlay_backdrop": "rgba(0, 0, 0, 0.64)"
+        }
+      }
+    },
+    "typography": {
+      "font_family": {
+        "primary": "Inter",
+        "fallback": [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "sans-serif"
+        ],
+        "monospace": [
+          "SFMono-Regular",
+          "Consolas",
+          "monospace"
+        ]
+      },
+      "weights": {
+        "regular": 400,
+        "medium": 500,
+        "semibold": 600,
+        "bold": 700
+      },
+      "scale": {
+        "caption": {
+          "font_size": "12px",
+          "line_height": "16px",
+          "weight": 400
+        },
+        "footnote": {
+          "font_size": "13px",
+          "line_height": "18px",
+          "weight": 400
+        },
+        "body_small": {
+          "font_size": "14px",
+          "line_height": "20px",
+          "weight": 400
+        },
+        "body": {
+          "font_size": "16px",
+          "line_height": "24px",
+          "weight": 400
+        },
+        "body_emphasis": {
+          "font_size": "16px",
+          "line_height": "24px",
+          "weight": 600
+        },
+        "label": {
+          "font_size": "14px",
+          "line_height": "20px",
+          "weight": 600
+        },
+        "title_small": {
+          "font_size": "18px",
+          "line_height": "24px",
+          "weight": 600
+        },
+        "title": {
+          "font_size": "22px",
+          "line_height": "28px",
+          "weight": 600
+        },
+        "headline": {
+          "font_size": "28px",
+          "line_height": "34px",
+          "weight": 700
+        },
+        "display": {
+          "font_size": "34px",
+          "line_height": "40px",
+          "weight": 700
+        }
+      }
+    },
+    "spacing": {
+      "unit": "4px",
+      "scale": {
+        "0": "0px",
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "20px",
+        "6": "24px",
+        "8": "32px",
+        "10": "40px",
+        "12": "48px",
+        "16": "64px"
+      }
+    },
+    "radius": {
+      "none": "0px",
+      "xs": "4px",
+      "sm": "8px",
+      "md": "12px",
+      "lg": "16px",
+      "xl": "20px",
+      "2xl": "24px",
+      "pill": "9999px"
+    },
+    "border": {
+      "width": {
+        "none": "0px",
+        "hairline": "1px",
+        "medium": "2px"
+      },
+      "style": "solid"
+    },
+    "shadow": {
+      "none": "none",
+      "sm": "0 1px 2px rgba(0, 0, 0, 0.06)",
+      "md": "0 4px 12px rgba(0, 0, 0, 0.08)",
+      "lg": "0 12px 32px rgba(0, 0, 0, 0.14)",
+      "overlay": "0 16px 48px rgba(0, 0, 0, 0.20)"
+    },
+    "sizing": {
+      "touch_target_min": "44px",
+      "icon_xs": "14px",
+      "icon_sm": "16px",
+      "icon_md": "20px",
+      "icon_lg": "24px",
+      "icon_xl": "32px",
+      "control_sm": "32px",
+      "control_md": "40px",
+      "control_lg": "48px"
+    },
+    "opacity": {
+      "disabled": 0.4,
+      "muted": 0.6,
+      "subtle": 0.8
+    }
+  },
+  "themes": {
+    "default": "system",
+    "supported": [
+      "light",
+      "dark",
+      "system"
+    ],
+    "color_mode_source": "application.theme.mode",
+    "switching": {
+      "preserve_component_state": true,
+      "transition": "color_only"
+    }
+  },
+  "layout": {
+    "viewport": {
+      "min_width": "320px",
+      "max_width": "767px",
+      "desktop_canvas_max_width": "480px"
+    },
+    "app_shell": {
+      "height": "100dvh",
+      "display": "flex",
+      "direction": "column",
+      "overflow": "hidden"
+    },
+    "page": {
+      "width": "100%",
+      "padding_horizontal": "16px",
+      "padding_top": "16px",
+      "padding_bottom": "24px"
+    },
+    "section": {
+      "gap": "24px"
+    },
+    "grid": {
+      "product_columns": 2,
+      "product_gap": "12px"
+    },
+    "safe_area": {
+      "top": true,
+      "right": true,
+      "bottom": true,
+      "left": true
+    },
+    "scroll": {
+      "main_content": "vertical",
+      "horizontal_overflow": "hidden"
+    }
+  },
+  "icons": {
+    "library": "Lucide",
+    "style": "outline",
+    "default_size": "20px",
+    "default_stroke_width": 1.8,
+    "decorative_icons_aria_hidden": true,
+    "icon_only_controls_require_accessible_label": true
+  },
+  "components": {
+    "button": {
+      "height": {
+        "sm": "32px",
+        "md": "40px",
+        "lg": "48px"
+      },
+      "radius": "pill",
+      "font_weight": 600,
+      "variants": {
+        "primary": {
+          "background": "accent",
+          "text": "text_inverse",
+          "border": "transparent"
+        },
+        "secondary": {
+          "background": "surface_secondary",
+          "text": "text_primary",
+          "border": "transparent"
+        },
+        "outline": {
+          "background": "transparent",
+          "text": "accent",
+          "border": "accent"
+        },
+        "ghost": {
+          "background": "transparent",
+          "text": "accent",
+          "border": "transparent"
+        },
+        "danger": {
+          "background": "danger",
+          "text": "text_inverse",
+          "border": "transparent"
+        }
+      }
+    },
+    "input": {
+      "height": "48px",
+      "radius": "md",
+      "padding_horizontal": "12px",
+      "background": "surface",
+      "text": "text_primary",
+      "placeholder": "text_tertiary",
+      "border": "border",
+      "focus": {
+        "border": "accent",
+        "ring": "0 0 0 3px accent_subtle"
+      }
+    },
+    "card": {
+      "background": "surface",
+      "radius": "lg",
+      "border": "border",
+      "shadow": "none",
+      "padding": "16px"
+    },
+    "badge": {
+      "radius": "pill",
+      "padding_horizontal": "8px",
+      "padding_vertical": "4px",
+      "typography": "caption",
+      "variants": {
+        "neutral": {
+          "background": "surface_secondary",
+          "text": "text_secondary"
+        },
+        "info": {
+          "background": "accent_subtle",
+          "text": "accent"
+        },
+        "success": {
+          "background": "success_subtle",
+          "text": "success"
+        },
+        "warning": {
+          "background": "warning_subtle",
+          "text": "warning"
+        },
+        "danger": {
+          "background": "danger_subtle",
+          "text": "danger"
+        }
+      }
+    },
+    "product_card": {
+      "radius": "lg",
+      "image_ratio": "1:1",
+      "image_fit": "cover",
+      "content_gap": "8px",
+      "title_typography": "body_small",
+      "price_typography": "body_emphasis",
+      "background": "surface"
+    },
+    "search_bar": {
+      "height": "44px",
+      "radius": "pill",
+      "background": "surface_secondary",
+      "icon_color": "text_secondary"
+    },
+    "header": {
+      "height": "56px",
+      "background": "surface",
+      "horizontal_padding": "16px",
+      "border_bottom": "border"
+    },
+    "bottom_navigation": {
+      "height": "64px",
+      "background": "surface",
+      "border_top": "border",
+      "icon_size": "22px",
+      "label_typography": "caption",
+      "active": {
+        "color": "accent",
+        "weight": 600
+      },
+      "inactive": {
+        "color": "text_secondary",
+        "weight": 400
+      }
+    },
+    "avatar": {
+      "size": {
+        "sm": "32px",
+        "md": "40px",
+        "lg": "56px"
+      },
+      "radius": "pill"
+    },
+    "divider": {
+      "color": "border",
+      "thickness": "1px"
+    }
+  },
+  "states": {
+    "interaction": [
+      "default",
+      "pressed",
+      "focused",
+      "disabled",
+      "loading",
+      "selected",
+      "error"
+    ],
+    "disabled": {
+      "opacity": 0.4,
+      "cursor": "not-allowed"
+    },
+    "focus": {
+      "visible": true,
+      "outline": "2px solid accent",
+      "outline_offset": "2px"
+    },
+    "pressed": {
+      "scale": 0.98
+    },
+    "loading": {
+      "preserve_component_size": true
+    }
+  },
+  "overlays": {
+    "host": "OverlayHost",
+    "z_index": {
+      "page": 0,
+      "popover": 100,
+      "drawer": 200,
+      "bottom_sheet": 300,
+      "modal": 400,
+      "dialog": 500,
+      "toast": 600
+    },
+    "backdrop": {
+      "color": "overlay_backdrop",
+      "blur": "2px"
+    },
+    "modal": {
+      "width": "calc(100% - 32px)",
+      "max_width": "420px",
+      "radius": "2xl",
+      "background": "surface",
+      "shadow": "overlay",
+      "padding": "24px"
+    },
+    "drawer": {
+      "width": "min(88vw, 360px)",
+      "background": "surface",
+      "shadow": "overlay",
+      "radius": "xl"
+    },
+    "bottom_sheet": {
+      "width": "100%",
+      "max_height": "90dvh",
+      "background": "surface",
+      "radius_top": "2xl",
+      "shadow": "overlay",
+      "padding": "20px"
+    },
+    "dialog": {
+      "width": "calc(100% - 48px)",
+      "max_width": "360px",
+      "radius": "xl",
+      "background": "surface",
+      "shadow": "overlay",
+      "padding": "24px"
+    },
+    "popover": {
+      "max_width": "280px",
+      "radius": "md",
+      "background": "surface",
+      "border": "border",
+      "shadow": "md",
+      "padding": "12px"
+    },
+    "toast": {
+      "max_width": "calc(100% - 32px)",
+      "radius": "lg",
+      "background": "gray_900",
+      "text": "white",
+      "shadow": "md",
+      "padding": "12px 16px"
+    }
+  },
+  "motion": {
+    "enabled": true,
+    "durations": {
+      "instant": "0ms",
+      "fast": "120ms",
+      "normal": "200ms",
+      "slow": "300ms"
+    },
+    "easing": {
+      "standard": "cubic-bezier(0.2, 0, 0, 1)",
+      "emphasized": "cubic-bezier(0.2, 0.8, 0.2, 1)"
+    },
+    "rules": {
+      "avoid_unnecessary_motion": true,
+      "respect_reduced_motion": true,
+      "page_transition": "none",
+      "overlay_transition": "normal"
+    }
+  },
+  "accessibility": {
+    "minimum_touch_target": "44px",
+    "text_scaling": "support",
+    "contrast": "WCAG_AA_target",
+    "visible_focus": true,
+    "color_not_only_indicator": true,
+    "reduced_motion": "required",
+    "icon_buttons_require_labels": true
+  },
+  "usage_rules": [
+    "All colors must reference foundations.color.semantic or foundations.color.palette tokens.",
+    "Do not hard-code colors in page or component definitions when a semantic token exists.",
+    "Use the typography scale for text hierarchy; avoid arbitrary font sizes.",
+    "Use the 4px spacing scale for layout spacing.",
+    "Use semantic color tokens so light and dark themes remain consistent.",
+    "Component-specific visual values must be defined here rather than duplicated in App.json.",
+    "Overlay components must use the centralized OverlayHost and the overlay tokens defined here.",
+    "Keep touch targets at least 44px and provide accessible labels for icon-only controls.",
+    "Respect safe areas and the mobile-only viewport constraints defined in App.json."
+  ]
+}
