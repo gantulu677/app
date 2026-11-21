@@ -3,9 +3,9 @@
   "config": {
     "name": "Storefront App",
     "file": "App.json",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "status": "draft",
-    "description": "Konfigurasi struktur aplikasi storefront mobile-first berbasis React.",
+    "description": "Konfigurasi storefront React mobile-only dengan AppShell flex-column dan MainContent scrollable.",
     "platform": "mobile",
     "framework": "react",
     "rendering": "spa",
@@ -22,7 +22,13 @@
   },
   "app_shell": {
     "type": "mobile",
-    "layout": "app-shell",
+    "layout": {
+      "display": "flex",
+      "direction": "column",
+      "min_height": "100dvh",
+      "height": "100dvh",
+      "overflow": "hidden"
+    },
     "safe_area": true,
     "header": {
       "enabled": true,
@@ -71,7 +77,8 @@
             "target": "profile"
           }
         }
-      ]
+      ],
+      "flex": "0 0 auto"
     },
     "main_content": {
       "id": "main-content",
@@ -80,7 +87,8 @@
       "scroll": {
         "enabled": true,
         "behavior": "native",
-        "preserve_position_on_tab_change": true
+        "preserve_position_on_tab_change": true,
+        "container": "main_content"
       },
       "pages": [
         {
@@ -143,12 +151,22 @@
             "bottom_tab": false
           }
         }
-      ]
+      ],
+      "layout": {
+        "display": "flex",
+        "direction": "column",
+        "flex": "1 1 0%",
+        "min_height": 0,
+        "overflow_y": "auto",
+        "overflow_x": "hidden",
+        "overscroll_behavior": "contain",
+        "webkit_overflow_scrolling": "touch"
+      }
     },
     "bottom_navigation": {
       "enabled": true,
       "position": "bottom",
-      "behavior": "fixed",
+      "behavior": "in_flow",
       "safe_area_inset": true,
       "items": [
         {
@@ -176,7 +194,8 @@
       "active_state": {
         "source": "current_route",
         "style_reference": "design_system.json"
-      }
+      },
+      "flex": "0 0 auto"
     }
   },
   "navigation": {
@@ -259,7 +278,11 @@
       "Page-specific sections and business logic must be defined outside App.json.",
       "Do not duplicate design tokens or backend configuration in this file.",
       "Only pages marked enabled may be registered in the application router.",
-      "Header and bottom navigation actions must resolve to valid page IDs or routes."
+      "Header and bottom navigation actions must resolve to valid page IDs or routes.",
+      "AppShell must use a full-viewport flex column layout with overflow hidden.",
+      "AppHeader and BottomNavigation must remain non-shrinking flex children outside the scroll container.",
+      "MainContent must use flex: 1 1 0%, min-height: 0, and overflow-y: auto so only the main content scrolls.",
+      "BottomNavigation must remain in normal flex flow; do not use fixed positioning when AppShell owns the viewport layout."
     ]
   }
 }
