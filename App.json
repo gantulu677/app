@@ -3,9 +3,9 @@
   "config": {
     "name": "Storefront App",
     "file": "App.json",
-    "version": "1.2.1",
+    "version": "1.3.0",
     "status": "draft",
-    "description": "Konfigurasi storefront React mobile-only dengan AppShell flex-column dan MainContent scrollable.",
+    "description": "Konfigurasi storefront React mobile-only dengan AppShell, StandalonePages, dan OverlayHost.",
     "platform": "mobile",
     "framework": "react",
     "rendering": "spa",
@@ -261,7 +261,9 @@
       "AppHeader",
       "MainContent",
       "PageRenderer",
-      "BottomNavigation"
+      "BottomNavigation",
+      "StandalonePageRenderer",
+      "OverlayHost"
     ],
     "configuration_driven": true,
     "separation_of_concerns": {
@@ -270,7 +272,9 @@
       "page_details": "pages.json",
       "reusable_components": "components.json",
       "data_contracts": "data.json",
-      "external_services": "integrations.json"
+      "external_services": "integrations.json",
+      "standalone_page_details": "standalone_pages.json",
+      "overlay_definitions": "overlays.json"
     },
     "rules": [
       "App.json defines application shell, page registry, and primary navigation.",
@@ -282,7 +286,69 @@
       "AppShell must use a full-viewport flex column layout with overflow hidden.",
       "AppHeader and BottomNavigation must remain non-shrinking flex children outside the scroll container.",
       "MainContent must use flex: 1 1 0%, min-height: 0, and overflow-y: auto so only the main content scrolls.",
-      "BottomNavigation must remain in normal flex flow; do not use fixed positioning when AppShell owns the viewport layout."
+      "BottomNavigation must remain in normal flex flow; do not use fixed positioning when AppShell owns the viewport layout.",
+      "Standalone pages must render outside AppShell and must not inherit AppHeader or BottomNavigation.",
+      "A route must be registered either as an AppShell page or as a standalone page; route ownership must not be ambiguous.",
+      "Overlay components must render through the centralized OverlayHost above the active page without replacing the current route.",
+      "Overlay visibility and payload must be controlled by application state; overlays must not be registered as standalone routes.",
+      "Standalone page-specific configuration may be maintained in standalone_pages.json, while reusable overlay definitions may be maintained in overlays.json."
     ]
+  },
+  "standalone_pages": {
+    "enabled": true,
+    "description": "Halaman mandiri yang dirender di luar AppShell dan tidak mewarisi Header maupun BottomNavigation.",
+    "layout": {
+      "display": "flex",
+      "direction": "column",
+      "min_height": "100dvh",
+      "height": "100dvh",
+      "overflow_y": "auto",
+      "overflow_x": "hidden"
+    },
+    "shell": "standalone",
+    "route_matching": "explicit",
+    "pages": []
+  },
+  "overlay": {
+    "enabled": true,
+    "host": "OverlayHost",
+    "rendering_layer": "portal",
+    "position": "above_app_content",
+    "stackable": true,
+    "close_on_backdrop": true,
+    "close_on_escape": true,
+    "body_scroll_lock": true,
+    "components": [
+      {
+        "id": "modal",
+        "type": "modal",
+        "enabled": true
+      },
+      {
+        "id": "drawer",
+        "type": "drawer",
+        "enabled": true
+      },
+      {
+        "id": "bottom_sheet",
+        "type": "bottom_sheet",
+        "enabled": true
+      },
+      {
+        "id": "dialog",
+        "type": "dialog",
+        "enabled": true
+      },
+      {
+        "id": "popover",
+        "type": "popover",
+        "enabled": true
+      }
+    ],
+    "behavior": {
+      "preserve_underlying_route": true,
+      "restore_focus_on_close": true,
+      "manage_z_index": "centralized"
+    }
   }
 }
