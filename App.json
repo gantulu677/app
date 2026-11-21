@@ -3,7 +3,7 @@
   "config": {
     "name": "Storefront App",
     "file": "App.json",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "status": "draft",
     "description": "Konfigurasi lengkap aplikasi storefront React mobile-only: halaman belanja, akun, pesanan, checkout mandiri, dan overlay.",
     "platform": "mobile",
@@ -78,7 +78,8 @@
           }
         }
       ],
-      "flex": "0 0 auto"
+      "flex": "0 0 auto",
+      "component": "Header"
     },
     "main_content": {
       "id": "main-content",
@@ -482,7 +483,8 @@
         "scroll_container": "main-content",
         "keep_shell_visible": true,
         "page_transition": "none"
-      }
+      },
+      "component": "MainContent"
     },
     "bottom_navigation": {
       "enabled": true,
@@ -499,7 +501,7 @@
         },
         {
           "id": "products",
-          "label": "Produk",
+          "label": "Products",
           "icon": "grid",
           "route": "/products",
           "page": "products"
@@ -516,8 +518,15 @@
         "source": "current_route",
         "style_reference": "design_system.json"
       },
-      "flex": "0 0 auto"
-    }
+      "flex": "0 0 auto",
+      "component": "BottomNavigation"
+    },
+    "component": "AppShell",
+    "children_order": [
+      "Header",
+      "main_content",
+      "bottom_navigation"
+    ]
   },
   "navigation": {
     "strategy": "route_based",
@@ -646,7 +655,8 @@
       "Reusable UI component contracts must be defined in components.json.",
       "Data contracts and external service configuration must remain outside App.json.",
       "Only enabled pages may be registered in the application router.",
-      "Header and bottom navigation actions must resolve to valid page IDs or routes."
+      "Header and bottom navigation actions must resolve to valid page IDs or routes.",
+      "AppShell direct child order is Header, main_content, then bottom_navigation; do not add other direct children to AppShell."
     ]
   },
   "standalone_pages": {
